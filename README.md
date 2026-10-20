@@ -1,0 +1,1 @@
+# awesome-saas-cancellation-and-migration-guides-2026
