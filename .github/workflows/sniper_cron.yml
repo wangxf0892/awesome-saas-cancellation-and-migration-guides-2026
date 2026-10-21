@@ -1,0 +1,82 @@
+name: SaaS Outage Auto-Sniper
+
+on:
+  schedule:
+    # 国际标准 Cron：每 2 小时自动在 GitHub 云端唤醒一次（免费不限额度）
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # 支持手动点按钮测试
+
+jobs:
+  sniper:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write # 赋予自动提 Issue 截流的权限
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Cloud Outage Radar
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          python -c '
+          import os
+          import requests
+
+          TARGETS = {
+              "Hootsuite": {
+                  "api": "https://status.hootsuite.com/api/v2/status.json",
+                  "slug": "superx",
+                  "alt": "SuperX"
+              },
+              "Buffer": {
+                  "api": "https://status.buffer.com/api/v2/status.json",
+                  "slug": "superx",
+                  "alt": "SuperX"
+              }
+          }
+
+          token = os.environ.get("GH_TOKEN")
+          repo = os.environ.get("REPO_NAME")
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json"
+          }
+
+          for name, config in TARGETS.items():
+              try:
+                  r = requests.get(config["api"], timeout=10)
+                  if r.status_code == 200:
+                      status_data = r.json().get("status", {})
+                      indicator = status_data.get("indicator", "none")
+                      desc = status_data.get("description", "")
+                      
+                      # 一旦触发故障报警
+                      if indicator not in ["none", "operational"]:
+                          issue_title = f"[EMERGENCY ALERT] {name} is DOWN: Working Alternatives & Migration Bridge"
+                          issue_body = f"""### ⚠️ {name} Incident Detected ({indicator.upper()})
+          **Details:** {desc}
+
+          If your workflow is blocked by {name} downtime, access our instant zero-downtime backup with active trial:
+
+          👉 **[Launch {config["alt"]} Instant Migration Bridge](https://redirect-hub.457239850.workers.dev/{config["slug"]})**
+          """
+                          # 自动在当前母舰仓库创建截流 Issue
+                          post_url = f"https://api.github.com/repos/{repo}/issues"
+                          res = requests.post(post_url, headers=headers, json={"title": issue_title, "body": issue_body})
+                          print(f"[!] 发现事故，已全自动在母舰创建截流 Issue: {res.status_code}")
+                      else:
+                          print(f"[√] {name} 正常")
+              except Exception as e:
+                  print(f"Error checking {name}: {e}")
+          '
