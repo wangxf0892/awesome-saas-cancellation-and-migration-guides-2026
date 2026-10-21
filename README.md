@@ -21,11 +21,11 @@ Stop overpaying for rigid template editors and risky bulk-applying scripts:
 
 Cost-cutting guides for creators migrating away from overpriced social schedulers:
 
-* [TweetHunter Cancellation & Migration Guide](https://github.com/wangxf0892/tweethunter-alternative-one-click-data-migration) - Save $600/year on X scheduling and unlock deep audience analytics.
-* [FeedHive Cheaper Alternatives](https://github.com/wangxf0892/feedhive-alternative-one-click-data-migration) - Modern alternatives to replace legacy posting pipelines.
-* [Hootsuite Cancellation & Migration Protocol](https://github.com/wangxf0892/hootsuite-alternative-one-click-data-migration) - How to bypass $99/mo renewal fees and migrate automated threads.
-* [Sprout Social Cost-Cutting Guide](https://github.com/wangxf0892/sproutsocial-alternative-one-click-data-migration) - Enterprise alternative routing for agile social teams.
-* [Typefully Pricing & Migration Alternatives](https://github.com/wangxf0892/typefully-alternative-one-click-data-migration) - Shift your publishing queue to high-retention context engines.
+* [TweetHunter Cancellation & Migration Guide](https://github.com/wangxf0892/awesome-saas-cancellation-and-migration-guides-2026/issues/7) - Save $600/year on X scheduling and unlock deep audience analytics.
+* [FeedHive Cheaper Alternatives](https://github.com/wangxf0892/awesome-saas-cancellation-and-migration-guides-2026/issues/8) - Modern alternatives to replace legacy posting pipelines.
+* [Hootsuite Cancellation & Migration Protocol](https://github.com/wangxf0892/awesome-saas-cancellation-and-migration-guides-2026/issues/9) - How to bypass $99/mo renewal fees and migrate automated threads.
+* [Sprout Social Cost-Cutting Guide](https://github.com/wangxf0892/awesome-saas-cancellation-and-migration-guides-2026/issues/10) - Enterprise alternative routing for agile social teams.
+* [Typefully Pricing & Migration Alternatives](https://github.com/wangxf0892/awesome-saas-cancellation-and-migration-guides-2026/issues/11) - Shift your publishing queue to high-retention context engines.
 
 ---
 
